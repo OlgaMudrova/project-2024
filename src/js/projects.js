@@ -1,27 +1,32 @@
+// Core version + navigation, keyboard, mousewheel modules:
 import Swiper from 'swiper';
-import { Navigation, Keyboard } from 'swiper/modules';
+import { Navigation, Keyboard, Mousewheel, Parallax } from 'swiper/modules';
 
-const projectsSwiper = new Swiper('.projects-swiper', {
-  modules: [Navigation, Keyboard],
-  speed: 800,
-  grabCursor: true,
-  allowTouchMove: true,
-  direction: 'horizontal',
-  spaceBetween: 16,
+// Init Swiper:
+const swiper = new Swiper('.swiper1', {
+   // Optional parameters
+    direction: 'horizontal',
+    loop: false,
+    speed: 500,
+    spaceBetween: 20,
 
-  navigation: {
-    nextEl: '.next-project-btn',
-    prevEl: '.prev-project-btn',
-  },
+    // Configure Swiper to use modules
+    modules: [Navigation, Keyboard, Mousewheel, Parallax],
 
-  keyboard: {
-    enabled: true,
-    onlyInViewport: true,
-    pageUpDown: true,
-  },
+    navigation: {
+        nextEl: '.swiper-btn-next',
+        prevEl: '.swiper-btn-prev',
+    },
 
-  mousewheel: {
-    sensitivity: 1,
-    eventsTarget: '.projects-list',
-  },
+    keyboard: {
+        enabled: true,
+    },
+
+    mousewheel: {
+        enabled: true,
+        forceToAxis: true,
+    },
+
+    parallax: true,
+
 });

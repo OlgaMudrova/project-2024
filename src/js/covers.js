@@ -1,24 +1,19 @@
-const elements = document.querySelectorAll('.animations');
-const covers = document.querySelector('.content');
+window.addEventListener('load', function () {
+  const marquee = selector => {
+    const parentSelector = document.querySelector(selector);
+    const clone = parentSelector.innerHTML;
+    parentSelector.insertAdjacentHTML('beforeend', clone);
+    parentSelector.insertAdjacentHTML('beforeend', clone);
 
-function checkIfCoversInView() {
-  const windowHeight = window.innerHeight;
-  elements.forEach(element => {
-    const elementTop = covers.getBoundingClientRect().top;
-    const elementBottom = covers.getBoundingClientRect().bottom;
-
-    if (
-      (elementTop >= 0 && elementTop <= windowHeight) ||
-      (elementBottom >= 0 && elementBottom <= windowHeight)
-    ) {
-      if (window.innerWidth < 1440) {
-        element.classList.add('animations-mobile-tablet');
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        parentSelector.classList.add('animate-marquee');
+      } else {
+        parentSelector.classList.remove('animate-marquee');
       }
-    } else {
-      element.classList.remove('animations-mobile-tablet');
-    }
-  });
-}
+    });
+    observer.observe(parentSelector);
+  };
 
-window.addEventListener('scroll', checkIfCoversInView);
-window.addEventListener('resize', checkIfCoversInView);
+  marquee('.covers-list');
+});

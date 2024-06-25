@@ -1,101 +1,91 @@
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
+
+import axios from 'axios';
 import Swiper from 'swiper';
-import { Navigation, Keyboard } from 'swiper/modules';
-import { getPortfolioReviews } from './portfolio.js';
-const reviewsList = document.querySelector('.reviews-list');
 
-getPortfolioReviews()
-  .then(response => {
-    if (!response.statusText === 'OK') {
-      throw new Error('Empty response data');
-    }
+import { Navigation, Keyboard, Mousewheel } from 'swiper/modules';
 
-    renderReviews(response.data, reviewsList, true);
-  })
-  .catch(() => {
-    showMessage('Server error. Please try again!');
-    renderReviews([], reviewsList, false);
+
+const reviewsList = document.querySelector('.reviews');
+
+function createReviewsMarkup(reviews) {
+  const markup = reviews.map(({avatar_url, author, review}) =>
+    `<li class="review-item swiper-slide">
+      <img
+        class="review-image"
+        src="${avatar_url}"
+        alt="${author}"
+        loading="lazy"
+        height="48"
+        width="48"
+      />
+      <div class="review-textbox">
+        <h3 class="review-author">${author}</h3>
+        <p class="review-text">${review}</p>
+      </div>
+    </li>`)
+    .join("");
+  reviewsList.insertAdjacentHTML("beforeend", markup);
+
+  const swiper_reviews = new Swiper('.swiper6', {
+
+    modules: [Navigation, Keyboard, Mousewheel],
+    slidesPerView: 1,
+    spaceBetween: 16,
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 16
+      },
+      1440: {
+        slidesPerView: 4,
+        spaceBetween: 16
+      }
+    },
+    navigation: {
+      nextEl: '.swiper-btn-next-review',
+      prevEl: '.swiper-btn-prev-review',
+    },
+    keyboard: {
+      enabled: true,
+    },
+    mousewheel: {
+      enabled: true,
+      forceToAxis: true,
+    },
   });
+}
 
-function renderReviews(reviews, reviewList, ok) {
-  if (ok) {
-    const reviewHTML = reviews
-      .map(
-        ({ _id, author, avatar_url, review }) =>
-          `<li class="reviews-list-item swiper-slide" id="review-${_id}">
-          <picture>
-            <source srcset="${avatar_url}" 
-              type="image/jpeg">
-              <img 
-                class="review-photo" 
-                src="${avatar_url}" 
-                alt="${author} photo" 
-                width="48" 
-                height="48" 
-                loading="lazy"
-              />
-          </picture>
-          <h3 class="review-author">${author}</h3>
-          <p class="review-text">${review}</p>
-      </li>`
-      )
-      .join('');
+axios.defaults.baseURL = "https://portfolio-js.b.goit.study/api/";
 
-    reviewList.insertAdjacentHTML('beforeend', reviewHTML);
-  } else {
-    reviewList.insertAdjacentHTML('beforeend', `<h3>Not found :(</h3>`);
+async function getAndDisplayReviews() {
+  try {
+    const reviews = await getReviews();
+    createReviewsMarkup(reviews);
+  } catch (error) {
+    handleError(error);
   }
 }
 
-function showMessage(message) {
-  const popup = document.createElement('div');
-  popup.className = 'popup-server-error';
-  popup.textContent = message;
-
-  document.body.appendChild(popup);
-
-  setTimeout(() => {
-    popup.classList.add('activate-popup-animation');
-  }, 50);
-
-  setTimeout(() => {
-    popup.classList.remove('activate-popup-animation');
-  }, 4000);
-
-  setTimeout(popup.remove.bind(popup), 5000);
+function handleError(error) {
+  iziToast.show({
+    fontSize: 'large',
+    position: 'topRight',
+    messageColor: 'white',
+    timeout: 6000,
+    backgroundColor: '#ED3B44',
+    theme: 'dark',
+    progressBar: false,
+    message: 'Something went wrong',
+  });
+  reviewsList.insertAdjacentHTML("beforeend", `<li class="not-found-item">
+    <p class="not-found-text">Not found</p></li>`);
 }
 
-const reviewsSwiper = new Swiper('.reviews-swiper', {
-  modules: [Navigation, Keyboard],
-  speed: 800,
-  grabCursor: true,
-  allowTouchMove: true,
-  direction: 'horizontal',
-  watchOverflow: true,
-  spaceBetween: 16,
+async function getReviews() {
+  const response = await axios.get("reviews");
+  return response.data;
+}
 
-  navigation: {
-    nextEl: '.next-review-btn',
-    prevEl: '.prev-review-btn',
-  },
-
-  keyboard: {
-    enabled: true,
-    onlyInViewport: true,
-    pageUpDown: true,
-  },
-
-  breakpoints: {
-    320: {
-      slidesPerGroup: 1,
-      slidesPerView: 1,
-    },
-    768: {
-      slidesPerGroup: 2,
-      slidesPerView: 2,
-    },
-    1440: {
-      slidesPerGroup: 4,
-      slidesPerView: 4,
-    },
-  },
-});
+getAndDisplayReviews();

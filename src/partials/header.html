@@ -1,54 +1,58 @@
-<header class="header">
-  <div class="header-container container">
-    <div class="header-logo">
-      <a href="./index.html" class="header-logo-link">
-        <picture>
-          <source srcset="./img/main-logo.webp, ./img/main-logo@2x.webp 2x" />
+<header class="header container" id="header">
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a class="header-link-logo" href="./index.html">
           <img
-            src="./img/main-logo.webp"
-            alt="lloyd jefferson photo"
+            class="header-img"
+            srcset="
+              ./img/header/header_avatar.png     80w,
+              ./img/header/header_avatar@2x.png 160w
+            "
+            sizes="(min-width: 768px) 80px, (max-width: 768px) 80px"
+            src="./img/header/header_avatar.png"
+            alt="avatar_person"
             width="80"
             height="80"
+            loading="lazy"
           />
-        </picture>
-        <p class="header-logo-text header-text">jefferson*</p>
-      </a>
-    </div>
-    <div class="header-menu-container menu-container">
-      <div class="header-list-container">
-        <button class="header-menu" type="button" data-menu-open-close>
-          Menu
-        </button>
-        <ul
-          class="header-menu-list header-text"
-          id="header-menu-list"
-          data-menu
-        >
-          <li class="header-menu-item header-text">
-            <a href="#about-me">About me</a>
-          </li>
-          <li class="header-menu-item header-text">
-            <a href="#benefits">Benefits</a>
-          </li>
-          <li class="header-menu-item header-text">
-            <a href="#projects">Projects</a>
-          </li>
-          <li class="header-menu-item header-text"><a href="#faq">FAQ</a></li>
-        </ul>
-      </div>
-
-      <a class="header-order-btn" href="#footer">Order the project</a>
-    </div>
-
-    <button
-      class="header-btn button-reset header-menu-link-btn"
-      id="open-menu"
-      type="button"
-      data-menu-open-modal
-    >
-      <svg class="header-menu-svg" width="28" height="28">
-        <use href="./img/sprite.svg#icon-menu-open"></use>
-      </svg>
-    </button>
-  </div>
+          <h2 class="header-title">jefferson*</h2>
+        </a>
+      </li>
+      <li class="nav-item">
+        <button class="header_menu" type="button" title="menu pages">Menu</button>
+      </li>
+      <li class="nav-item">
+        <a href="#order" class="header_order_btn">Order the project</a>
+      </li>
+      <li class="nav-item">
+        <div class="close">
+          <div class="burger"></div>
+        </div>
+      </li>
+    </ul>
+    <ul class="list-menu-header">
+      <li class="list-menu-header-item"><a href="#about-me">About me</a></li>
+      <li class="list-menu-header-item"><a href="#benefits">Benefits</a></li>
+      <li class="list-menu-header-item"><a href="#projects">Projects</a></li>
+      <li class="list-menu-header-item"><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
 </header>
+<div class="mob-menu">
+  <div class="container-mob-menu">
+    <ul class="list-open-modal">
+      <li class="list-open-item"><a href="#about-me">About me</a></li>
+      <li class="list-open-item"><a href="#benefits">Benefits</a></li>
+      <li class="list-open-item"><a href="#projects">Projects</a></li>
+      <li class="list-open-item"><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#order" class="header_modal_order_btn">Order the project</a>
+  </div>
+  <div class="close-modal">
+    <div class="burger-modal"></div>
+  </div>
+</div>
+<div class="btn-up btn-up_hide">
+  <div class="btn-up-circle"></div>
+</div>
