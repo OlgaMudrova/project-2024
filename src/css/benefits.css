@@ -1,180 +1,109 @@
-/* Стилі шрифтів та кольори
-
-=========Дефолтні===========
-font-family: var(--font-cap-regular)
-===========================
-
-========Приклад як прописувати=====
-font-family: var(--font-cap-extrabold);
-==========================
-
--------Список жирності----
-100   var(--font-cap-thin)
-200   var(--font-cap-extralight)
-300   var(--font-cap-light)
-400   var(--font-cap-regular)
-500   var(--font-cap-medium)
-600   var(--font-cap-semibold)
-700   var(--font-cap-bold) 
-800   var(--font-cap-extrabold)
-900   var(--font-cap-black)
--------Список жирності ----
-
-=======Кольори======
---main-black-color: #1C1D20;
---secondary-color: #242527;
---dark-grey-color: #3B3B3B;
---accent-color: #ED3B44;
---accent-white-color: #FAFAFA;
-=======Кольори======
-
-====Як прописувати колір====
-color: var(--main-black-color);
-====Як прописувати колір====
-*/
-
-/* ==================== Benefits Mobile style ====================  */
-.benefits-section {
-  background: var(--main-black-color);
-  color: var(--accent-white-color);
+.benefits {
+  padding: 32px 0;
 }
 
 .benefits-title {
-  font-family: var(--font-cap-semibold);
+  font-weight: 600;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 1.5;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: rgba(250, 250, 250, 0.4);
-  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 32px;
+  color: rgba(250, 250, 250, 0.4);
 }
 
 .benefits-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
   margin-bottom: 32px;
 }
 
-.benefits-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.benefits-item-container {
   border-radius: 20px;
   padding: 24px;
-  height: 270px;
-  background: var(--secondary-color);
+  background-color: var(--cards-black);
 }
 
-.benefits-item-icon-container {
+.benefits-icon-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  justify-content: center;
+  margin-bottom: 64px;
   width: 48px;
   height: 48px;
-  background: var(--accent-color);
+  border-radius: 10px;
+  background-color: var(--main-red);
 }
 
-.benefits-item-icon {
-  fill: none;
-  stroke: var(--accent-white-color);
+.benefits-icons {
+  fill: transparent;
+  stroke: var(--main-white);
 }
 
-.benefits-item-title {
-  font-family: var(--font-cap-semibold);
+.benefits-description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.benefits-name {
+  font-weight: 600;
   font-size: 20px;
   line-height: 1.5;
   letter-spacing: -0.02em;
-  color: var(--accent-white-color);
-  margin-bottom: 8px;
 }
 
-.benefits-item-text {
-  font-family: var(--font-cap-medium);
+.benefits-description {
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.02em;
   color: rgba(250, 250, 250, 0.6);
 }
 
-.benefits-anchor-btn {
+.benefits-btn {
   display: inline-block;
-  border: 1px solid rgba(250, 250, 250, 0.2);
-  border-radius: 60px;
-  padding: 18px 36px;
-  /* width: 189px; */
+  min-width: 187px;
   height: 55px;
-  text-decoration: none;
-  font-family: var(--font-cap-medium);
+  padding: 17px 35px;
   font-size: 16px;
   letter-spacing: -0.02em;
-  color: var(--accent-white-color);
-  text-align: center;
-  -webkit-tap-highlight-color: transparent;
+  border-radius: 60px;
+  border: 1px solid rgba(250, 250, 250, 0.2);
+  transition: border-color var(--main-dur-func-transition);
 }
 
-.benefits-anchor-btn:focus {
-  border-color: var(--accent-white-color);
+.benefits-btn:hover {
+  border-color: var(--main-white);
 }
 
-.benefits-anchor-btn:active {
-  transform: scale(0.98);
-}
-
-@media screen and (max-width: 359px) {
-  .benefits-item-icon-container {
-    margin-bottom: 32px;
-  }
-  .benefits-item {
-    justify-content: flex-start;
-  }
-}
-/* ==================== /Benefits Mobile style ====================  */
-
-/* ==================== Benefits Tablet style ====================  */
 @media screen and (min-width: 768px) {
+  .benefits {
+    padding: 48px 0;
+  }
+
   .benefits-list {
     flex-direction: row;
     flex-wrap: wrap;
     margin-bottom: 64px;
   }
 
-  .benefits-item {
-    width: 344px;
-  }
-}
-/* ==================== /Benefits Tablet style ====================  */
-
-/* ==================== Benefits Desktop style ====================  */
-@media screen and (hover: hover) {
-  .benefits-anchor-btn {
-    transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1),
-      transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .benefits-anchor-btn:hover {
-    border-color: var(--accent-white-color);
+  .benefits-item-container {
+    width: calc((100% - 16px) / 2);
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .benefits-title-list-wrapper {
+  .benefits {
+    padding: 82px 0;
+  }
+
+  .benefits-container {
     display: flex;
     justify-content: space-between;
   }
 
-  .benefits-list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 680px;
-    margin-bottom: 64px;
-  }
-
-  .benefits-item {
-    width: 332px;
+  .benefits-additional-container {
+    width: calc((100% - 16px) / 2);
   }
 }
-/* ==================== /Benefits Desktop style ====================  */
